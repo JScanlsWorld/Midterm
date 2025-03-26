@@ -1,0 +1,47 @@
+section .text
+	
+	global _start
+_start:
+	mov al, [x]		    ;load al with x (x = 2)
+	test al, 1		    ;test for 1 at the lsb
+	jz is_even		    ;since 2 = 10, ZF will be raised, and jump to is_even
+	xor al, al		
+	
+	mov eax, 1
+	int 0x80
+
+is_even:
+	mov eax, 4		    ;sys_write
+	mov ebx, 1		    ;file descriptor
+	mov ecx, even		    ;pointer to even message
+	mov edx, 5		    ;length of the message (5 bytes)
+	
+	int 0x80
+
+	mov al, [y]		    ;overwrite al with y (y = 3)
+	test al, 1		    ;test for 1 at the lsb
+	jnz is_odd		    ;since 3 = 11, ZF won't be raised, and jump to is_odd
+	
+	xor al, al
+    mov eax, 1
+    int 0x80
+
+is_odd:
+    mov eax, 4		    	    ;sys_write
+    mov ebx, 1		            ;file descriptor
+    mov ecx, odd		    ;pointer to odd message
+    mov edx, 4		            ;length of the message (4 bytes)
+
+    int 0x80
+
+    xor al, al
+    mov eax, 1
+    int 0x80
+
+section .data
+
+	x db 2
+	y db 3
+
+	even db "even", 0x0a
+	odd db "odd", 0x0a

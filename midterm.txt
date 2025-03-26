@@ -1,0 +1,28 @@
+section .text
+
+	global _start
+
+_start:
+	mov al, [var1]		    ;load al with the value inside var1
+	add al, 2		    ;add 2 to al
+	mov bl, [var2]		    ;load bl with var2
+	sub bl, [var3]		    ;subtract bl by var3
+	
+	div bl			    ;divide al by the contents of bl
+	
+	mov [remainder], ah	    ;pull the remainder from ah and store it in "remainder"
+	mov [result], eax	    ;store the quotient in "result"
+	mov bl, [remainder]	    ;for displaying purposes, store remainder and result in bl and cl respectively
+	mov cl, [result]		
+
+	mov eax, 1
+	int 0x80
+
+section .bss
+	result resb 1
+	remainder resb 1
+
+section .data
+	var1 db 13  
+	var2 db 8
+	var3 db 6

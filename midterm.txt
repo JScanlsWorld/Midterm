@@ -1,0 +1,28 @@
+section .text
+
+	global _start
+
+_start:
+	mov al, [var1]
+	add al, 2
+	mov bl, [var2]
+	sub bl, [var3]
+	
+	div bl
+	
+	mov [remainder], ah
+	mov [result], eax
+	mov bl, [remainder]
+	mov cl, [result]
+
+	mov eax, 1
+	int 0x80
+
+section .bss
+	result resb 1
+	remainder resb 1
+
+section .data
+	var1 db 13  
+	var2 db 8
+	var3 db 6

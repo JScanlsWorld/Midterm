@@ -1,0 +1,47 @@
+section .text
+	
+	global _start
+_start:
+	mov al, [x]
+	test al, 1
+	jz is_even
+	xor al, al
+	
+	mov eax, 1
+	int 0x80
+
+is_even:
+	mov eax, 4
+	mov ebx, 1
+	mov ecx, even
+	mov edx, 5
+	
+	int 0x80
+
+	mov al, [y]
+	test al, 1
+	jnz is_odd
+	
+	xor al, al
+        mov eax, 1
+        int 0x80
+
+is_odd:
+	mov eax, 4
+        mov ebx, 1
+        mov ecx, odd
+        mov edx, 4
+
+        int 0x80
+
+        xor al, al
+        mov eax, 1
+        int 0x80
+
+section .data
+
+	x db 2
+	y db 3
+
+	even db "even", 0x0a
+	odd db "odd", 0x0a

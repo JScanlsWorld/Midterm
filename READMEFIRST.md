@@ -19,3 +19,4 @@ Q3 Thought Process
   I had two challenges I faced with implementing this code. The first challenge was my misunderstanding of what the line "test al, 1" actually does. It does check for a 1 in the lsb, but I had
   mistakenly used "jnz" instead of the "jz" instruction for testing if two was even. So, if the Zero Flag was raised, nothing would happen, and it would simply move on to exit the program.
   After identifying the issue and the cause, I reworked the code so that it was able to produce the desired outputs in the registers as well as printing "even" or "odd" depending on the value.
+
